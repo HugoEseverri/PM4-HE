@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
                         <h3 className="p-3 text-[22px] hover:text-gray-300 hover:underline">CONTACTO</h3>
                     </Link>
                     <p className="p-3">123 Calle Falsa, Buenos Aires, Argentina.</p>
-                    <p className="p-3 hover:text-gray-100">+059456123789</p>
+                    <p className="p-3 hover:text-gray-100">+05945612378</p>
                 </div>
 
                 {/* Columna 3: Cuenta */}
