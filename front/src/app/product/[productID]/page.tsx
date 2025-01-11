@@ -35,6 +35,7 @@ const Page = async ({ params }: { params: { productID: string } }) => {
                     <h3 className="text-3xl text-center text-gray-800 mb-6">{foundProduct.name}</h3>
                     <p className="text-xl text-center text-gray-500 m-5">{foundProduct.description}</p>
                     <p className="text-xl font-semibold text-gray-900">Precio: ${foundProduct.price}</p>
+                    
                     <AddToCartButton product={foundProduct} />
                 </div>
             </div>

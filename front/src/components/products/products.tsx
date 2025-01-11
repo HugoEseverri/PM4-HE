@@ -18,7 +18,7 @@ export default async function pageProduct() {
                         width={0}
                         height={0}
                         sizes="100vw"
-                        className="object-cover h-[250px] sm:h-[300px]  md:h-full"
+                        className="object-cover h-[250px] sm:h-[300px]  md:h-[500px]"
                     />
 
                 </div>

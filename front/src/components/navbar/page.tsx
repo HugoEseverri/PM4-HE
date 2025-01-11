@@ -5,6 +5,7 @@ import { useCart } from "@/context/cartContext";
 import carrocompra from "@/assets/img/carrocompra.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const Navbar: React.FC = () => {
     const { isAuthenticated, logout } = useAuth();
@@ -15,6 +16,18 @@ const Navbar: React.FC = () => {
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
     };
+
+    const handleCarritoClick = () => {
+        if (!isAuthenticated) {
+            Swal.fire({
+                title: '¡Debes iniciar sesión!',
+                text: 'Para acceder al carrito debes estar logueado.',
+                icon: 'warning',
+                confirmButtonText: 'Iniciar sesión',
+            });
+        }
+    };
+
 
     return (
         <div className="bg-white flex justify-around 2xl:justify-center p-9 items-center relative">
@@ -31,7 +44,7 @@ const Navbar: React.FC = () => {
             </Link>
             <div className="flex items-center relative">
                 <div
-                    className="2xl:hidden flex items-center z-50" 
+                    className="2xl:hidden flex items-center z-50"
                     onClick={toggleMenu}
                 >
                     <div className="w-6 h-6 flex flex-col justify-between items-center space-y-1">
@@ -41,7 +54,6 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Menú Hamburguesa - Visible solo en pantallas pequeñas */}
                 {isMenuOpen && (
                     <div className="absolute top-12 right-10 bg-white shadow-lg rounded-md w-48 p-4 z-40 border border-gray-300 2xl:hidden">
                         <ul className="flex flex-col justify-around space-y-4 h-[400px] font-semibold">
@@ -118,7 +130,7 @@ const Navbar: React.FC = () => {
                     </div>
                 )}
 
-                {/* Navbar normal - Visible solo en pantallas grandes */}
+                
                 <nav
                     className={`hidden 2xl:block ${isMenuOpen ? "hidden" : "block"}`}
                 >
@@ -196,20 +208,43 @@ const Navbar: React.FC = () => {
                 </nav>
 
                 {/* Icono del carrito - Visible siempre */}
-                <div className="relative pl-10 z-40">
-                    <Link href="/carrito">
-                        <img
-                            className="w-10 h-10"
-                            src={carrocompra.src}
-                            alt="Carrito de Compra"
-                        />
-                        {cartCount > 0 && (
-                            <span className="absolute top-0 right-0 bg-red-500 text-white text-sm rounded-full w-5 h-5 flex items-center justify-center">
-                                {cartCount}
-                            </span>
-                        )}
-                    </Link>
-                </div>
+
+                {isAuthenticated ? (
+                    <>
+                        <div className="relative pl-10 z-40">
+                            <Link href="/carrito">
+                                <img
+                                    className="w-10 h-10"
+                                    src={carrocompra.src}
+                                    alt="Carrito de Compra"
+                                />
+                                {cartCount > 0 && (
+                                    <span className="absolute top-0 right-0 bg-red-500 text-white text-sm rounded-full w-5 h-5 flex items-center justify-center">
+                                        {cartCount}
+                                    </span>
+                                )}
+                            </Link>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="relative pl-10 z-40">
+                            <Link href="/login"  onClick={handleCarritoClick}>
+                                <img
+                                    className="w-10 h-10"
+                                    src={carrocompra.src}
+                                    alt="Carrito de Compra"
+                                />
+                                {cartCount > 0 && (
+                                    <span className="absolute top-0 right-0 bg-red-500 text-white text-sm rounded-full w-5 h-5 flex items-center justify-center">
+                                        {cartCount}
+                                    </span>
+                                )}
+                            </Link>
+                        </div>
+
+                    </>
+                )};
             </div>
         </div>
     );
